@@ -1,9 +1,0 @@
-Metadata-Version: 2.4
-Name: small-win
-Version: 0.1.0
-Summary: Small Win - your AI todo list
-Requires-Python: >=3.13
-Requires-Dist: fastapi
-Requires-Dist: uvicorn
-Requires-Dist: pydantic
-Requires-Dist: requests
