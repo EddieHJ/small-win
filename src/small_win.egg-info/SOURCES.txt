@@ -1,0 +1,8 @@
+pyproject.toml
+src/small_win/__init__.py
+src/small_win/main.py
+src/small_win.egg-info/PKG-INFO
+src/small_win.egg-info/SOURCES.txt
+src/small_win.egg-info/dependency_links.txt
+src/small_win.egg-info/requires.txt
+src/small_win.egg-info/top_level.txt
