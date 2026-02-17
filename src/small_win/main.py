@@ -1,7 +1,4 @@
 from fastapi import FastAPI
-import small_win
-app = FastAPI(title="TEST")
-
-@app.get("/")
-def test():
-    return {"package name test": small_win.__name__,}
+from small_win.api.chat import router
+app = FastAPI(title="small win v0.1")
+app.include_router(router)
