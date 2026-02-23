@@ -1,4 +1,6 @@
 from google import genai
+from google.genai.types import GenerateContentConfig
+
 from small_win.schemas.schema import GoalBreakdown
 
 client = genai.Client()
@@ -19,16 +21,22 @@ SYSTEM_PROMPT = """
 """
 
 async def generate_action_plan(user_goal: str) -> GoalBreakdown:
-    full_prompt = SYSTEM_PROMPT + user_goal
+    try:
+        response = await client.aio.models.generate_content(
+            model="gemini-3-flash-preview",
+            contents=user_goal,
+            config=GenerateContentConfig(
+                response_mime_type="application/json",
+                response_schema=GoalBreakdown,
+                system_instruction=SYSTEM_PROMPT,
+            )
+        )
+        return GoalBreakdown.model_validate_json(response.text)
 
-    response = client.models.generate_content(
-        model="gemini-3-flash-preview",
-        contents=full_prompt,
-        config={
-            "response_mime_type": "application/json",
-            "response_json_schema": GoalBreakdown.model_json_schema(),
-        },
-    )
+    except Exception as e:
+        # 在这里打印日志，方便排查
+        print(f"Gemini API Error: {e}")
+        # 抛出异常给 API 层处理，或者返回一个空的/错误的结构
+        raise e
 
-    action_plan = GoalBreakdown.model_validate_json(response.text)
-    return action_plan
+
