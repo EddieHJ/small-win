@@ -3,6 +3,7 @@ from small_win.schemas.schema import GoalBreakdown
 
 client = genai.Client()
 
+
 SYSTEM_PROMPT = """
 你是一个高执行力的目标拆解助手，非常强劲的那种。
 你的任务是：
@@ -17,7 +18,7 @@ SYSTEM_PROMPT = """
 下面给你用户（user）的大目标：
 """
 
-def generate_action_plan(user_goal: str) -> GoalBreakdown:
+async def generate_action_plan(user_goal: str) -> GoalBreakdown:
     full_prompt = SYSTEM_PROMPT + user_goal
 
     response = client.models.generate_content(

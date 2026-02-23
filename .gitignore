@@ -64,3 +64,8 @@ Thumbs.db
 *.log
 *.tmp
 *.temp
+
+
+
+# Ignore learn dir
+learn/
